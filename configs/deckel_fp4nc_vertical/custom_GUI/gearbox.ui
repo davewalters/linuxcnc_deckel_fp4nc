@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Gearbox</class>
+ <widget class="QWidget" name="Gearbox">
+  <layout class="QVBoxLayout" name="mainLayout">
+
+   <!-- State Machine Group -->
+   <item>
+    <widget class="QGroupBox" name="groupBox_state">
+     <property name="title"><string>State Machine Status</string></property>
+     <layout class="QVBoxLayout" name="stateMachineLayout">
+
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_inhibit"/></item><item><widget class="QLabel"><property name="text"><string>INHIBIT</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_zero_speed"/></item><item><widget class="QLabel"><property name="text"><string>MOTOR ZERO SPEED</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_set_actions"/></item><item><widget class="QLabel"><property name="text"><string>SET SHIFT ACTIONS</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_shifting"/></item><item><widget class="QLabel"><property name="text"><string>SHIFTING</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_check_status"/></item><item><widget class="QLabel"><property name="text"><string>CHECK SHIFT STATUS</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_set_motor_speed"/></item><item><widget class="QLabel"><property name="text"><string>SET MOTOR SPEED</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_done"/></item><item><widget class="QLabel"><property name="text"><string>DONE</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_abort"/></item><item><widget class="QLabel"><property name="text"><string>ABORT</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_failed"/></item><item><widget class="QLabel"><property name="text"><string>FAILED</string></property></widget></item></layout></item>
+      <item><layout class="QHBoxLayout"><item><widget class="HalLed" name="state_led_motor_stopping"/></item><item><widget class="QLabel"><property name="text"><string>MOTOR STOPPING</string></property></widget></item></layout></item>
+
+     </layout>
+    </widget>
+   </item>
+
+   <!-- Numeric State Output -->
+   <item>
+    <widget class="QLCDNumber" name="state_machine_value"/>
+   </item>
+
+   <!-- Tool Change Request -->
+   <item>
+    <layout class="QHBoxLayout">
+     <item><widget class="HalLed" name="toolchange_led"/></item>
+     <item><widget class="QLabel"><property name="text"><string>Tool Change Request</string></property></widget></item>
+    </layout>
+   </item>
+
+   <!-- Microswitch Grid -->
+   <item>
+    <widget class="QGroupBox" name="group_microswitches">
+     <property name="title"><string>Microswitch States</string></property>
+     <layout class="QGridLayout" name="gridLayoutMicroswitches">
+      <item row="0" column="0"><widget class="QLabel"><property name="text"><string>Motor M5:</string></property></widget></item>
+      <item row="0" column="1"><widget class="HalLed" name="switch_s36"/></item>
+      <item row="0" column="2"><widget class="HalLed" name="switch_s37"/></item>
+      <item row="0" column="3"><widget class="HalLed" name="switch_s38"/></item>
+
+      <item row="1" column="0"><widget class="QLabel"><property name="text"><string>Motor M6:</string></property></widget></item>
+      <item row="1" column="1"><widget class="HalLed" name="switch_s39"/></item>
+      <item row="1" column="2"><widget class="HalLed" name="switch_s40"/></item>
+      <item row="1" column="3"><widget class="HalLed" name="switch_s41"/></item>
+
+      <item row="2" column="0"><widget class="QLabel"><property name="text"><string>Motor M7:</string></property></widget></item>
+      <item row="2" column="1"><widget class="HalLed" name="switch_s42"/></item>
+      <item row="2" column="2"><widget class="HalLed" name="switch_s43"/></item>
+      <item row="2" column="3"><widget class="HalLed" name="switch_s44"/></item>
+     </layout>
+    </widget>
+   </item>
+
+  
+   <!-- Spindle Speed Indicators -->
+   <item>
+    <widget class="QGroupBox" name="groupBox_spindle_speeds">
+     <property name="title"><string>Spindle Speeds</string></property>
+     <layout class="QVBoxLayout" name="spindleSpeedLayout">
+      <item><widget class="QLabel" name="label_spindle_requested"><property name="text"><string><font color='green'>Requested: 1500 RPM</font></string></property></widget></item>
+      <item><widget class="QLabel" name="label_spindle_actual"><property name="text"><string><font color='orange'>Actual: 1450 RPM</font></string></property></widget></item>
+      <item><widget class="QLabel" name="label_spindle_nominal"><property name="text"><string><font color='grey'>Nominal: 1600 RPM</font></string></property></widget></item>
+     </layout>
+    </widget>
+   </item>
+</layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HalLed</class>
+   <extends>QWidget</extends>
+   <header>qtvcp/widgets/hal_widgets.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

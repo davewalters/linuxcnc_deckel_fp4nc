@@ -1,0 +1,81 @@
+# Load realtime components
+loadrt comp count=11
+
+addf comp.0 servo-thread
+addf comp.1 servo-thread
+addf comp.2 servo-thread
+addf comp.3 servo-thread
+addf comp.4 servo-thread
+addf comp.5 servo-thread
+addf comp.6 servo-thread
+addf comp.7 servo-thread
+addf comp.8 servo-thread
+addf comp.9 servo-thread
+addf comp.10 servo-thread
+
+
+
+# State machine LED logic
+net state_machine_state => \
+    comp.0.in0 \
+    comp.1.in0 \
+    comp.2.in0 \
+    comp.3.in0 \
+    comp.4.in0 \
+    comp.5.in0 \
+    comp.6.in0 \
+    comp.7.in0 \
+    comp.8.in0 \
+    comp.9.in0 \
+    comp.10.in0
+
+setp comp.0.in1 0.0         #inhibit
+setp comp.1.in1 1.0         #zero-speed
+setp comp.2.in1 2.1         #set-actions
+setp comp.3.in1 2.2         #shifting
+setp comp.4.in1 2.3         #check-status
+setp comp.5.in1 2.4         #set-motor-speed
+setp comp.6.in1 2.5         #done
+setp comp.7.in1 2.6         #abort
+setp comp.8.in1 2.7         #failed
+setp comp.9.in1 2.8         #tool change hold
+setp comp.10.in1 5.0         #stopping
+
+# LED HAL widget bindings
+net state-inhibit           comp.0.equal  => qtdragon.gearbox-gui.state_led_inhibit
+net state-zero-speed        comp.1.equal  => qtdragon.gearbox-gui.state_led_zero_speed
+net state-set-actions       comp.2.equal  => qtdragon.gearbox-gui.state_led_set_actions
+net state-shifting          comp.3.equal  => qtdragon.gearbox-gui.state_led_shifting
+net state-check-status      comp.4.equal  => qtdragon.gearbox-gui.state_led_check_status
+net state-set-motor-speed   comp.5.equal  => qtdragon.gearbox-gui.state_led_set_motor_speed
+net state-done              comp.6.equal  => qtdragon.gearbox-gui.state_led_done
+net state-abort             comp.7.equal  => qtdragon.gearbox-gui.state_led_abort
+net state-failed            comp.8.equal  => qtdragon.gearbox-gui.state_led_failed
+net state-tool-change-hold  comp.9.equal   => qtdragon.gearbox-gui.state_led_tool_change_hold
+net state-stopping          comp.10.equal  => qtdragon.gearbox-gui.state_led_motor_stopping
+
+# Tool change indicator
+net safe_tool_change_request            => qtdragon.gearbox-gui.toolchange_led
+
+# Microswitch LED bindings
+net gearbox_microswitch_S36             => qtdragon.gearbox-gui.switch_s36
+net gearbox_microswitch_S37             => qtdragon.gearbox-gui.switch_s37
+net gearbox_microswitch_S38             => qtdragon.gearbox-gui.switch_s38
+net gearbox_microswitch_S39             => qtdragon.gearbox-gui.switch_s39
+net gearbox_microswitch_S40             => qtdragon.gearbox-gui.switch_s40
+net gearbox_microswitch_S41             => qtdragon.gearbox-gui.switch_s41
+net gearbox_microswitch_S42             => qtdragon.gearbox-gui.switch_s42
+net gearbox_microswitch_S43             => qtdragon.gearbox-gui.switch_s43
+net gearbox_microswitch_S44             => qtdragon.gearbox-gui.switch_s44
+
+# Gearbox state machine state ID
+net state_machine_state                 => qtdragon.gearbox-gui.state_machine_value
+
+# Spindle speed outputs
+net spindle_cmd_rpm_int                 => qtdragon.gearbox-gui.spindle_requested_rpm
+net spindle_actual_rpm_int              => qtdragon.gearbox-gui.spindle_actual_rpm
+net gearbox_nominal_speed_int           => qtdragon.gearbox-gui.gearbox_nominal_rpm
+
+# Spindle ON/OFF
+net spindle_on                          => qtdragon.gearbox-gui.spindle_state
+

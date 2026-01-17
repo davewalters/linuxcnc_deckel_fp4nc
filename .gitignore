@@ -1,0 +1,17 @@
+# LinuxCNC runtime & state
+*.var
+*.var.bak
+*.log
+*.pref
+*.halscope
+mdi_history.dat
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,83 @@
+# Gearbox Tab HAL Connections
+
+# Load realtime components
+loadrt equal count=10
+addf equal.0 servo-thread
+addf equal.1 servo-thread
+addf equal.2 servo-thread
+addf equal.3 servo-thread
+addf equal.4 servo-thread
+addf equal.5 servo-thread
+addf equal.6 servo-thread
+addf equal.7 servo-thread
+addf equal.8 servo-thread
+addf equal.9 servo-thread
+addf conv-float-rps-req servo-thread
+addf conv-float-rps-actual servo-thread
+addf conv-float-rps-nom servo-thread
+
+# State machine LED logic
+net state_machine_state => \
+    equal.0.in0 \
+    equal.1.in0 \
+    equal.2.in0 \
+    equal.3.in0 \
+    equal.4.in0 \
+    equal.5.in0 \
+    equal.6.in0 \
+    equal.7.in0 \
+    equal.8.in0 \
+    equal.9.in0
+
+setp equal.0.in1 0
+setp equal.1.in1 1
+setp equal.2.in1 2.1
+setp equal.3.in1 2.2
+setp equal.4.in1 2.3
+setp equal.5.in1 2.4
+setp equal.6.in1 2.5
+setp equal.7.in1 2.6
+setp equal.8.in1 2.7
+setp equal.9.in1 5
+
+# LED HAL widget bindings
+net state-inhibit         equal.0.out => qtdragon.state_led_inhibit
+net state-zero-speed      equal.1.out => qtdragon.state_led_zero_speed
+net state-set-actions     equal.2.out => qtdragon.state_led_set_actions
+net state-shifting        equal.3.out => qtdragon.state_led_shifting
+net state-check-status    equal.4.out => qtdragon.state_led_check_status
+net state-set-motor-speed equal.5.out => qtdragon.state_led_set_motor_speed
+net state-done            equal.6.out => qtdragon.state_led_done
+net state-abort           equal.7.out => qtdragon.state_led_abort
+net state-failed          equal.8.out => qtdragon.state_led_failed
+net state-stopping        equal.9.out => qtdragon.state_led_motor_stopping
+
+# State display numeric
+net state_machine_state => qtdragon.state_machine_value
+
+# Tool change indicator
+net tool_change_request => qtdragon.toolchange_led
+
+# Microswitch LED bindings
+net gearbox_microswitch_S36 => qtdragon.switch_s36
+net gearbox_microswitch_S37 => qtdragon.switch_s37
+net gearbox_microswitch_S38 => qtdragon.switch_s38
+net gearbox_microswitch_S39 => qtdragon.switch_s39
+net gearbox_microswitch_S40 => qtdragon.switch_s40
+net gearbox_microswitch_S41 => qtdragon.switch_s41
+net gearbox_microswitch_S42 => qtdragon.switch_s42
+net gearbox_microswitch_S43 => qtdragon.switch_s43
+net gearbox_microswitch_S44 => qtdragon.switch_s44
+
+# Spindle speed conversion from rps to rpm
+setp conv-float-rps-req.in2 60.0
+setp conv-float-rps-actual.in2 60.0
+setp conv-float-rps-nom.in2 60.0
+
+net spindle_cmd_rps               => conv-float-rps-req.in1
+net spindle_actual_speed_rps      => conv-float-rps-actual.in1
+net spindle_speed_out_rps            => conv-float-rps-nom.in1
+
+net spindle-cmd-rpm        => conv-float-rps-req.out => qtdragon.label_spindle_requested
+net spindle-actual-rpm     => conv-float-rps-actual.out => qtdragon.label_spindle_actual
+net gearbox-nominal-rpm    => conv-float-rps-nom.out => qtdragon.label_spindle_nominal

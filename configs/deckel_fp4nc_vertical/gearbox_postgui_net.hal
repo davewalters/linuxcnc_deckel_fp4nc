@@ -1,0 +1,11 @@
+#separated out to fix a race condition where type was set to bit rather than float or s32.
+# Gearbox state machine state ID
+net state_machine_state => qtdragon.gearbox-gui.state_machine_value
+
+# Spindle speed outputs
+net spindle_cmd_rpm_int        => qtdragon.gearbox-gui.spindle_requested_rpm
+net spindle_actual_rpm_int     => qtdragon.gearbox-gui.spindle_actual_rpm
+net gearbox_nominal_rpm_int    => qtdragon.gearbox-gui.gearbox_nominal_rpm
+
+# Spindle ON/OFF
+net spindle_on                 => qtdragon.gearbox-gui.spindle_state
