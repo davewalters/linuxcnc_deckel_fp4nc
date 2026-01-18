@@ -1,5 +1,10 @@
 # Deckel FP4NC LinuxCNC Retrofit
 
+<p align="center">
+  <img src="images/deckel_fp4nc_thumbnail.png" width="400" alt="Deckel FP4NC LinuxCNC Retrofit">
+</p>
+
+
 This repository contains configuration files and custom Python components for a LinuxCNC retrofit of a 1985 Deckel FP4NC CNC milling machine.
 
 The custom components include:
