@@ -1,7 +1,7 @@
 # Deckel FP4NC LinuxCNC Retrofit
 
 <p align="center">
-  <img src="images/deckel_fp4nc_thumbnail.png" width="400" alt="Deckel FP4NC LinuxCNC Retrofit">
+  <img src="images/deckel_fp4nc_thumbnail.jpg" width="400" alt="Deckel FP4NC LinuxCNC Retrofit">
 </p>
 
 
